@@ -28,6 +28,8 @@ public class G {
     public static class V {
         public int x, y;
 
+        public V(V v){x = v.x; y = v.y;} 
+
         public V(int x, int y) {
             this.set(x, y);
         }
@@ -111,5 +113,27 @@ public class G {
 
     // -----------------------PL-----------------------
     public static class PL {
+        public V[] points; // we keep an array of points
+
+        public PL(int count) {
+            points = new V[count]; // allocate the array
+            for (int i = 0; i < count; i++) {
+                points[i] = new V(0, 0);
+            } // populate it with V objects
+        }
+
+        public int size() {
+            return points.length;
+        }
+
+        public void drawN(Graphics g, int n) { // used to draw an initial portion of the full array
+            for (int i = 1; i < n; i++) {
+                g.drawLine(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
+            }
+        }
+      
+        public void draw(Graphics g) {
+            drawN(g, points.length);
+        }
     }
 }

@@ -1,6 +1,5 @@
 package sandbox;
 
-import graphics.G;
 import graphics.WinApp;
 import java.awt.*;
 import java.util.ArrayList;
