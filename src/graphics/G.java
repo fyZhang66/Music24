@@ -28,7 +28,8 @@ public class G {
     public static class V {
         public int x, y;
 
-        public V(V v){x = v.x; y = v.y;} 
+        // public V(V v){x = v.x; y = v.y;} 
+        public V(V v){this.set(v);} // copy existing V
 
         public V(int x, int y) {
             this.set(x, y);
@@ -38,6 +39,7 @@ public class G {
             this.x = x;
             this.y = y;
         }
+        public void set(V v){set(v.x, v.y);}
 
         public void add(V v) {
             x += v.x;
@@ -105,10 +107,24 @@ public class G {
 
     // -----------------------LoHi---------------------
     public static class LoHi {
+        public int lo, hi;
+        public LoHi(int min, int max){lo = min; hi = max;}
+        public void set(int v){lo = v; hi = v;} // first value into the set
+        public void add(int v){if(v<lo){lo=v;} if(v>hi){hi=v;}} // move bounds if necessary
+        public int size(){return (hi-lo) > 0 ? hi-lo : 1;}
+        public int constrain(int v){if(v<lo){return lo;} else return (v<hi)?v:hi;}
     }
+
 
     // -----------------------BBox---------------------
     public static class BBox {
+        LoHi h, v;  // horizontal and vertical ranges.
+        public BBox(){h = new LoHi(0,0); v = new LoHi(0,0);}
+        public void set(int x, int y){h.set(x); v.set(y);} // sets it to a single point
+        public void add(int x, int y){h.add(x); v.add(y);}
+        public void add(V v){add(v.x, v.y);}
+        public VS getNewVS(){return new VS(h.lo, v.lo, h.hi-h.lo, v.hi-v.lo);}
+        public void draw(Graphics g){g.drawRect(h.lo, v.lo, h.hi-h.lo, v.hi-v.lo);}
     }
 
     // -----------------------PL-----------------------
@@ -130,10 +146,17 @@ public class G {
             for (int i = 1; i < n; i++) {
                 g.drawLine(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
             }
+            drawNDots(g,n);
         }
       
         public void draw(Graphics g) {
             drawN(g, points.length);
+        }
+
+        // draw dots at each point
+        public void drawNDots(Graphics g, int n){
+            g.setColor(Color.RED);
+            for(int i=0; i<n; i++){g.drawOval(points[i].x-2, points[i].y-2, 4,4);}
         }
     }
 }
