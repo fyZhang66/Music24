@@ -131,7 +131,7 @@ public class Squares extends WinApp implements ActionListener {
 
     @Override
     public void paintComponent(Graphics g) {
-        G.fillBackground(g, Color.WHITE);
+        G.fillBackground(g);
         squares.draw(g);
         // if (showSpline && squares.size() > 2) {
         // g.setColor(Color.BLACK);

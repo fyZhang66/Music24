@@ -18,8 +18,8 @@ public class G {
     public static final VS BACKGROUND_RECT = new VS(0, 0, 3000, 3000);
 
     // clear the background with a color
-    public static void fillBackground(Graphics g, Color c) {
-        BACKGROUND_RECT.fill(g, c);
+    public static void fillBackground(Graphics g) {
+        BACKGROUND_RECT.fill(g, Color.WHITE);
     }
 
     // -----------------------V------------------------
