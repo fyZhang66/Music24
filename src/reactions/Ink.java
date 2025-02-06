@@ -14,13 +14,14 @@ public class Ink extends G.PL implements I.Show {
   
     public Ink() {
       super(BUFFER.n);
+      System.out.print(BUFFER.n);
       for (int i = 0; i < BUFFER.n; i++) {
         points[i]= new G.V(BUFFER.points[i]);
       }
     }
   
     @Override
-    public void show(Graphics g) { g.setColor(UC.inkColor); }
+    public void show(Graphics g) { g.setColor(UC.inkColor); draw(g); }
   
     // --------------------Buffer----------------------
     public static class Buffer extends G.PL implements I.Show, I.Area {
@@ -43,6 +44,5 @@ public class Ink extends G.PL implements I.Show {
   
       @Override
       public void show(Graphics g) { for (Ink i : this) { i.show(g); }}
-  
     }
   }
